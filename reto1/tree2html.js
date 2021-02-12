@@ -1,6 +1,13 @@
-const convertJsonToHtml = (tree) => {
+const tabWithSpaces = (numSpaces) => {
+    let i = 0
+    let tab = ''
+    for (i = 0; i < numSpaces; i++) tab += ' '
+    return tab
+}
+
+const convertJsonToHtml = (tree, indentSpaces = 4) => {
     const newLine = '\n'
-    const indent = '\t'
+    const indent = tabWithSpaces(indentSpaces)
     const baseTag = tree.tag
     const childrenTag = 'li'
     let html = `<${baseTag}>${newLine}`
@@ -11,4 +18,7 @@ const convertJsonToHtml = (tree) => {
     return html
 }
 
-module.exports = convertJsonToHtml;
+module.exports = {
+    convertJsonToHtml,
+    tabWithSpaces
+}
