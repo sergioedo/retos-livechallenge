@@ -9,7 +9,7 @@ test('tab with 2, 3 or 4 spaces', () => {
 })
 
 const testCases = [
-    ['basic', 4,
+    ['basic', 4, 0,
         {
             tag: "ul",
             children: [
@@ -30,7 +30,7 @@ const testCases = [
     <li>El último</li>
 </ul>`
     ],
-    ['basic', 2,
+    ['basic', 2, 0,
         {
             tag: "ul",
             children: [
@@ -51,8 +51,29 @@ const testCases = [
   <li>El último</li>
 </ul>`
     ],
+    ['basic with initial indentation', 2, 5,
+        {
+            tag: "ul",
+            children: [
+                {
+                    text: "Primer elemento"
+                },
+                {
+                    text: "Cáspita, otro elemento"
+                },
+                {
+                    text: "El último"
+                }
+            ]
+        },
+        `          <ul>
+            <li>Primer elemento</li>
+            <li>Cáspita, otro elemento</li>
+            <li>El último</li>
+          </ul>`
+    ],
     [
-        'tree with subtree', 4,
+        'tree with subtree', 4, 0,
         {
             tag: "ul",
             children: [
@@ -93,7 +114,7 @@ const testCases = [
 </ul>`
     ],
     [
-        'with multiples subtrees', 4,
+        'with multiples subtrees', 4, 0,
         {
             tag: "ul",
             children: [
@@ -188,8 +209,8 @@ const testCases = [
     ]
 ]
 test.each(testCases)(
-    'convert tree %s to HTML with %i spaces indentation',
-    (desc, spaces, tree, html) => {
-        expect(convertJsonToHtml(tree, spaces)).toBe(html);
+    'convert tree %s to HTML with %i spaces tabs and %i initial tabs',
+    (desc, spaces, baseTabs, tree, html) => {
+        expect(convertJsonToHtml(tree, spaces, baseTabs)).toBe(html);
     }
 )

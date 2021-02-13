@@ -5,27 +5,28 @@ const tabWithSpaces = (numSpaces) => {
     return tab
 }
 
-const convertJsonToHtml = (tree, indentSpaces = 4, numIndentsBase = 0) => {
+const convertJsonToHtml = (tree, tabSpaces = 4, baseTabs = 0) => {
     const newLine = '\n'
-    const indentBase = tabWithSpaces(indentSpaces * numIndentsBase)
-    const indent = tabWithSpaces(indentSpaces)
+    const baseIndent = tabWithSpaces(tabSpaces * baseTabs)
+    const tabIndent = tabWithSpaces(tabSpaces)
     // console.log(`${level} - ${indentSpaces} - [${indentBase}]`)
     const baseTag = tree.tag
     const childrenTag = 'li'
-    let html = `${indentBase}<${baseTag}>${newLine}`
+
+    let html = `${baseIndent}<${baseTag}>${newLine}`
     tree.children.map(e => {
         if (e.children) { // caso recursivo
+            html += `${baseIndent}${tabIndent}<${childrenTag}>${newLine}`
+            html += `${baseIndent}${tabIndent}${tabIndent}${e.text}${newLine}`
             e.children.map(child => {
-                html += `${indentBase}${indent}<${childrenTag}>${newLine}`
-                html += `${indentBase}${indent}${indent}${e.text}${newLine}`
-                html += `${indentBase}${convertJsonToHtml(child, indentSpaces, numIndentsBase + 2)}${newLine}`
-                html += `${indentBase}${indent}</${childrenTag}>${newLine}`
+                html += `${convertJsonToHtml(child, tabSpaces, baseTabs + 2)}${newLine}`
             })
+            html += `${baseIndent}${tabIndent}</${childrenTag}>${newLine}`
         } else { // caso simple
-            html += `${indentBase}${indent}<${childrenTag}>${e.text}</${childrenTag}>${newLine}`
+            html += `${baseIndent}${tabIndent}<${childrenTag}>${e.text}</${childrenTag}>${newLine}`
         }
     })
-    html += `${indentBase}</${baseTag}>`
+    html += `${baseIndent}</${baseTag}>`
     // console.log(html)
     return html
 }
