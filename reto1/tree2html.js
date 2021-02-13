@@ -5,6 +5,8 @@ const tabWithSpaces = (numSpaces) => {
     return tab
 }
 
+const getHTMLClass = (element) => element.class ? ` class="${element.class}"` : ''
+
 const convertJsonToHtml = (tree, tabSpaces = 4, baseTabs = 0) => {
     const newLine = '\n'
     const baseIndent = tabWithSpaces(tabSpaces * baseTabs)
@@ -16,14 +18,14 @@ const convertJsonToHtml = (tree, tabSpaces = 4, baseTabs = 0) => {
     let html = `${baseIndent}<${baseTag}>${newLine}`
     tree.children.map(e => {
         if (e.children) { // caso recursivo
-            html += `${baseIndent}${tabIndent}<${childrenTag}>${newLine}`
+            html += `${baseIndent}${tabIndent}<${childrenTag}${getHTMLClass(e)}>${newLine}`
             html += `${baseIndent}${tabIndent}${tabIndent}${e.text}${newLine}`
             e.children.map(child => {
                 html += `${convertJsonToHtml(child, tabSpaces, baseTabs + 2)}${newLine}`
             })
             html += `${baseIndent}${tabIndent}</${childrenTag}>${newLine}`
         } else { // caso simple
-            html += `${baseIndent}${tabIndent}<${childrenTag}>${e.text}</${childrenTag}>${newLine}`
+            html += `${baseIndent}${tabIndent}<${childrenTag}${getHTMLClass(e)}>${e.text}</${childrenTag}>${newLine}`
         }
     })
     html += `${baseIndent}</${baseTag}>`
