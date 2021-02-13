@@ -9,7 +9,7 @@ const convertJsonToHtml = (tree, indentSpaces = 4, level = 0) => {
     const newLine = '\n'
     const indentBase = tabWithSpaces(indentSpaces * level)
     const indent = tabWithSpaces(indentSpaces)
-    console.log(`${level} - ${indentSpaces} - [${indentBase}]`)
+    // console.log(`${level} - ${indentSpaces} - [${indentBase}]`)
     const baseTag = tree.tag
     const childrenTag = 'li'
     let html = `${indentBase}<${baseTag}>${newLine}`
@@ -26,7 +26,7 @@ const convertJsonToHtml = (tree, indentSpaces = 4, level = 0) => {
         }
     })
     html += `${indentBase}</${baseTag}>`
-    console.log(html)
+    // console.log(html)
     return html
 }
 

@@ -8,75 +8,79 @@ test('tab with 2, 3 or 4 spaces', () => {
     expect(tabWithSpaces(4)).toBe('    ')
 })
 
-// Basic sample
-// Input:
-const tree = {
-    tag: "ul",
-    children: [
+const testCases = [
+    ['basic', 4,
         {
-            text: "Primer elemento"
+            tag: "ul",
+            children: [
+                {
+                    text: "Primer elemento"
+                },
+                {
+                    text: "Cáspita, otro elemento"
+                },
+                {
+                    text: "El último"
+                }
+            ]
         },
-        {
-            text: "Cáspita, otro elemento"
-        },
-        {
-            text: "El último"
-        }
-    ]
-}
-// Output:
-const html = `<ul>
+        `<ul>
     <li>Primer elemento</li>
     <li>Cáspita, otro elemento</li>
     <li>El último</li>
 </ul>`
-
-test('convert basic tree to HTML', () => {
-    expect(convertJsonToHtml(tree)).toBe(html);
-})
-
-//Output with 2 spaces tabs
-const htmlIndent2spaces = `<ul>
+    ],
+    ['basic', 2,
+        {
+            tag: "ul",
+            children: [
+                {
+                    text: "Primer elemento"
+                },
+                {
+                    text: "Cáspita, otro elemento"
+                },
+                {
+                    text: "El último"
+                }
+            ]
+        },
+        `<ul>
   <li>Primer elemento</li>
   <li>Cáspita, otro elemento</li>
   <li>El último</li>
 </ul>`
-
-test('convert basic tree to HTML with 2 spaces indentation', () => {
-    expect(convertJsonToHtml(tree, 2)).toBe(htmlIndent2spaces);
-})
-
-// Extra sample
-// Input:
-const treeExtra = {
-    tag: "ul",
-    children: [
+    ],
+    [
+        'tree with subtree', 4,
         {
-            text: "Primer elemento"
-        },
-        {
-            text: "Cáspita, otro elemento",
+            tag: "ul",
             children: [
                 {
-                    tag: "ul",
+                    text: "Primer elemento"
+                },
+                {
+                    text: "Cáspita, otro elemento",
                     children: [
                         {
-                            text: 'Primer heredero del cáspita'
-                        },
-                        {
-                            text: 'Último heredero del cáspita'
+                            tag: "ul",
+                            children: [
+                                {
+                                    text: 'Primer heredero del cáspita'
+                                },
+                                {
+                                    text: 'Último heredero del cáspita'
+                                }
+                            ]
                         }
                     ]
+                },
+                {
+                    text: "El último"
                 }
             ]
         },
-        {
-            text: "El último"
-        }
-    ]
-}
-// Output:
-const htmlExtra = `<ul>
+        `<ul>
     <li>Primer elemento</li>
     <li>
         Cáspita, otro elemento
@@ -87,7 +91,11 @@ const htmlExtra = `<ul>
     </li>
     <li>El último</li>
 </ul>`
-
-test('convert tree with subtree to HTML with 4 spaces indentation', () => {
-    expect(convertJsonToHtml(treeExtra, 4)).toBe(htmlExtra);
-})
+    ]
+]
+test.each(testCases)(
+    'convert tree %s to HTML with %i spaces indentation',
+    (desc, spaces, tree, html) => {
+        expect(convertJsonToHtml(tree, spaces)).toBe(html);
+    }
+)
