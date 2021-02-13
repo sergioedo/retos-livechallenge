@@ -73,7 +73,7 @@ const testCases = [
           </ul>`
     ],
     [
-        'tree with subtree', 4, 0,
+        'with subtree', 4, 0,
         {
             tag: "ul",
             children: [
@@ -206,7 +206,51 @@ const testCases = [
         </ul>
     </li>
 </ul>`
-    ]
+    ],
+    [
+        'with classes', 4, 0,
+        {
+            tag: "ul",
+            children: [
+                {
+                    text: "Primer elemento",
+                    class: "my-first-class"
+                },
+                {
+                    text: "Cáspita, otro elemento",
+                    class: "my-second-class",
+                    children: [
+                        {
+                            tag: "ul",
+                            children: [
+                                {
+                                    text: 'Primer heredero del cáspita',
+                                    class: "my-third-class"
+                                },
+                                {
+                                    text: 'Último heredero del cáspita'
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    text: "El último"
+                }
+            ]
+        },
+        `<ul>
+    <li class="my-first-class">Primer elemento</li>
+    <li class="my-second-class">
+        Cáspita, otro elemento
+        <ul>
+            <li class="my-third-class">Primer heredero del cáspita</li>
+            <li>Último heredero del cáspita</li>
+        </ul>
+    </li>
+    <li>El último</li>
+</ul>`
+    ],
 ]
 test.each(testCases)(
     'convert tree %s to HTML with %i spaces tabs and %i initial tabs',
