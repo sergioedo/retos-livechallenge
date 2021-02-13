@@ -91,6 +91,100 @@ const testCases = [
     </li>
     <li>El último</li>
 </ul>`
+    ],
+    [
+        'with multiples subtrees', 4,
+        {
+            tag: "ul",
+            children: [
+                {
+                    text: "Primer elemento"
+                },
+                {
+                    text: "Cáspita, otro elemento",
+                    children: [
+                        {
+                            tag: "ul",
+                            children: [
+                                {
+                                    text: 'Primer heredero del cáspita'
+                                },
+                                {
+                                    text: 'Último heredero del cáspita',
+                                    children: [
+                                        {
+                                            tag: "ul",
+                                            children: [
+                                                {
+                                                    text: 'Primer heredero del cáspita 2'
+                                                },
+                                                {
+                                                    text: 'Último heredero del cáspita 2'
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            tag: "ul",
+                            children: [
+                                {
+                                    text: 'Primer heredero del cáspita 3'
+                                },
+                                {
+                                    text: 'Último heredero del cáspita 3'
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    text: "Cáspita, otro elemento 4",
+                    children: [
+                        {
+                            tag: "ul",
+                            children: [
+                                {
+                                    text: 'Primer heredero del cáspita 4'
+                                },
+                                {
+                                    text: 'Último heredero del cáspita 4'
+                                }
+                            ]
+                        }
+                    ]
+                },
+            ]
+        },
+        `<ul>
+    <li>Primer elemento</li>
+    <li>
+        Cáspita, otro elemento
+        <ul>
+            <li>Primer heredero del cáspita</li>
+            <li>
+                Último heredero del cáspita
+                <ul>
+                    <li>Primer heredero del cáspita 2</li>
+                    <li>Último heredero del cáspita 2</li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li>Primer heredero del cáspita 3</li>
+            <li>Último heredero del cáspita 3</li>
+        </ul>
+    </li>
+    <li>
+        Cáspita, otro elemento 4
+        <ul>
+            <li>Primer heredero del cáspita 4</li>
+            <li>Último heredero del cáspita 4</li>
+        </ul>
+    </li>
+</ul>`
     ]
 ]
 test.each(testCases)(

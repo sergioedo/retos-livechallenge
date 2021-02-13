@@ -5,9 +5,9 @@ const tabWithSpaces = (numSpaces) => {
     return tab
 }
 
-const convertJsonToHtml = (tree, indentSpaces = 4, level = 0) => {
+const convertJsonToHtml = (tree, indentSpaces = 4, numIndentsBase = 0) => {
     const newLine = '\n'
-    const indentBase = tabWithSpaces(indentSpaces * level)
+    const indentBase = tabWithSpaces(indentSpaces * numIndentsBase)
     const indent = tabWithSpaces(indentSpaces)
     // console.log(`${level} - ${indentSpaces} - [${indentBase}]`)
     const baseTag = tree.tag
@@ -18,7 +18,7 @@ const convertJsonToHtml = (tree, indentSpaces = 4, level = 0) => {
             e.children.map(child => {
                 html += `${indentBase}${indent}<${childrenTag}>${newLine}`
                 html += `${indentBase}${indent}${indent}${e.text}${newLine}`
-                html += `${indentBase}${convertJsonToHtml(child, indentSpaces, level + 2)}${newLine}`
+                html += `${indentBase}${convertJsonToHtml(child, indentSpaces, numIndentsBase + 2)}${newLine}`
                 html += `${indentBase}${indent}</${childrenTag}>${newLine}`
             })
         } else { // caso simple
