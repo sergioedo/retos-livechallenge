@@ -1,14 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faStop, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faStop, faRedo, faAlignCenter } from '@fortawesome/free-solid-svg-icons'
+import FlipNumbers from 'react-flip-numbers'
 
 const initialTime = 20
 
-const buttonStyle = {
-    backgroundColor: '#cacaca',
+const containerStyle = {
+    width: '100%',
+    height: '100vh',
+    background: '#f6f5f5',
+    // border: '1px solid #2d2d2d',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontFamily: 'monospace'
+}
+
+const contentStyle = {
+    color: '#fff',
+    background: '#d3e0ea',
     borderRadius: '20px',
-    padding: '8px'
+    padding: '24px',
+    display: 'inline - block'
+}
+
+const titleStyle = {
+    color: '#276678',
+    marginTop: 0
+}
+
+const buttonStyle = {
+    backgroundColor: '#1687a7',
+    borderColor: '#276678',
+    color: '#f6f5f5',
+    borderRadius: '20px',
+    padding: '8px',
+    fontFamily: 'monospace',
+    border: 'hidden'
 }
 
 const ButtonControl = ({ onClick, text, faIcon }) => {
@@ -65,12 +94,18 @@ const App = () => {
     }, [])
 
     return (
-        <>
-            <h1>Malandriner CountDown: {counter}s</h1>
-            <ButtonControl onClick={() => startCountDown(intervalID)} text="PLAY" faIcon={faPlay} />&nbsp;&nbsp;
-            <ButtonControl onClick={() => stopCountDown(intervalID)} text="STOP" faIcon={faStop} />&nbsp;&nbsp;
-            <ButtonControl onClick={() => resetCountDown(intervalID)} text="RESET" faIcon={faRedo} />
-        </>
+        <section style={containerStyle}>
+            <div style={contentStyle}>
+                <h1 style={titleStyle}>Malandriner CountDown</h1>
+                <FlipNumbers height={24} width={24} color="#ffffff" background="#276678" play perspective={100} numbers={counter.toString()} />
+                <br />
+                <div style={{ textAlign: 'center' }}>
+                    <ButtonControl onClick={() => startCountDown(intervalID)} text="PLAY" faIcon={faPlay} />&nbsp;&nbsp;
+                    <ButtonControl onClick={() => stopCountDown(intervalID)} text="STOP" faIcon={faStop} />&nbsp;&nbsp;
+                    <ButtonControl onClick={() => resetCountDown(intervalID)} text="RESET" faIcon={faRedo} />
+                </div>
+            </div>
+        </section>
     )
 }
 

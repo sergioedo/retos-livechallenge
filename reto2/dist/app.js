@@ -9914,8 +9914,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var react_flip_numbers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-flip-numbers */ "./node_modules/react-flip-numbers/lib/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -9936,20 +9937,45 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var initialTime = 20;
-var buttonStyle = {
-  backgroundColor: '#cacaca',
+var containerStyle = {
+  width: '100%',
+  height: '100vh',
+  background: '#f6f5f5',
+  // border: '1px solid #2d2d2d',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontFamily: 'monospace'
+};
+var contentStyle = {
+  color: '#fff',
+  background: '#d3e0ea',
   borderRadius: '20px',
-  padding: '8px'
+  padding: '24px',
+  display: 'inline - block'
+};
+var titleStyle = {
+  color: '#276678',
+  marginTop: 0
+};
+var buttonStyle = {
+  backgroundColor: '#1687a7',
+  borderColor: '#276678',
+  color: '#f6f5f5',
+  borderRadius: '20px',
+  padding: '8px',
+  fontFamily: 'monospace',
+  border: 'hidden'
 };
 
 var ButtonControl = function ButtonControl(_ref) {
   var onClick = _ref.onClick,
       text = _ref.text,
       faIcon = _ref.faIcon;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
     style: buttonStyle,
     onClick: onClick,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
       icon: faIcon
     }), "\xA0", text]
   });
@@ -10010,32 +10036,50 @@ var App = function App() {
       stopCountDown(intervalID); //liberamos el timer al desmontar el componente
     };
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h1", {
-      children: ["Malandriner CountDown: ", counter, "s"]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(ButtonControl, {
-      onClick: function onClick() {
-        return startCountDown(intervalID);
-      },
-      text: "PLAY",
-      faIcon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__.faPlay
-    }), "\xA0\xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(ButtonControl, {
-      onClick: function onClick() {
-        return stopCountDown(intervalID);
-      },
-      text: "STOP",
-      faIcon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__.faStop
-    }), "\xA0\xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(ButtonControl, {
-      onClick: function onClick() {
-        return resetCountDown(intervalID);
-      },
-      text: "RESET",
-      faIcon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__.faRedo
-    })]
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("section", {
+    style: containerStyle,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      style: contentStyle,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+        style: titleStyle,
+        children: "Malandriner CountDown"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_flip_numbers__WEBPACK_IMPORTED_MODULE_3__.default, {
+        height: 24,
+        width: 24,
+        color: "#ffffff",
+        background: "#276678",
+        play: true,
+        perspective: 100,
+        numbers: counter.toString()
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        style: {
+          textAlign: 'center'
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ButtonControl, {
+          onClick: function onClick() {
+            return startCountDown(intervalID);
+          },
+          text: "PLAY",
+          faIcon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faPlay
+        }), "\xA0\xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ButtonControl, {
+          onClick: function onClick() {
+            return stopCountDown(intervalID);
+          },
+          text: "STOP",
+          faIcon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faStop
+        }), "\xA0\xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ButtonControl, {
+          onClick: function onClick() {
+            return resetCountDown(intervalID);
+          },
+          text: "RESET",
+          faIcon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faRedo
+        })]
+      })]
+    })
   });
 };
 
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(App, {}), document.getElementById('app'));
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(App, {}), document.getElementById('app'));
 
 /***/ }),
 
@@ -37215,6 +37259,435 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-flip-numbers/lib/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-flip-numbers/lib/index.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var React = _interopDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var reactSimpleAnimate = __webpack_require__(/*! react-simple-animate */ "./node_modules/react-simple-animate/dist/index.js");
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    keys.push.apply(keys, Object.getOwnPropertySymbols(object));
+  }
+
+  if (enumerableOnly) keys = keys.filter(function (sym) {
+    return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+  });
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+var commonAnimateStyle = {
+  position: 'absolute',
+  height: '100%',
+  transformStyle: 'preserve-3d'
+};
+var easeType = 'cubic-bezier(0.19, 1, 0.22, 1)';
+var revolutionDegrees = 360;
+var resetRouteCounter = 1000;
+var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var rotateDegreePerNumber = 36;
+
+var calculateDegrees = function calculateDegrees(rotateCounter, activeNumber) {
+  var animateDegree = numbers.findIndex(function (v) {
+    return v === activeNumber;
+  }) * rotateDegreePerNumber;
+  var amountDegree = rotateCounter * revolutionDegrees;
+  return _objectSpread2({}, activeNumber === 0 ? {
+    rotateCounter: rotateCounter > resetRouteCounter ? 0 : rotateCounter + 1
+  } : null, {
+    degree: amountDegree - animateDegree
+  });
+};
+
+var FlipNumber =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(FlipNumber, _React$Component);
+
+  function FlipNumber() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, FlipNumber);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(FlipNumber)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      degree: 0,
+      rotateCounter: 0 // eslint-disable-line react/no-unused-state
+
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "updateNumber", function () {
+      _this.setState(function (_ref) {
+        var rotateCounter = _ref.rotateCounter;
+        return calculateDegrees(rotateCounter, _this.props.activeNumber);
+      });
+    });
+
+    return _this;
+  }
+
+  _createClass(FlipNumber, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.updateNumberTimeout = setTimeout(function () {
+        return _this2.updateNumber();
+      }, 50 * this.props.position);
+    }
+  }, {
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      return nextProps.activeNumber !== this.props.activeNumber || nextProps.height !== this.props.height || nextProps.width !== this.props.width || this.state.degree === 0 || nextProps.play !== this.props.play;
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearTimeout(this.updateNumberTimeout);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          activeNumber = _this$props.activeNumber,
+          height = _this$props.height,
+          color = _this$props.color,
+          background = _this$props.background,
+          width = _this$props.width,
+          perspective = _this$props.perspective,
+          duration = _this$props.duration,
+          play = _this$props.play,
+          delay = _this$props.delay,
+          length = _this$props.length,
+          position = _this$props.position,
+          _this$props$numberSty = _this$props.numberStyle,
+          numberStyle = _this$props$numberSty === void 0 ? {} : _this$props$numberSty;
+      var degree = this.state.degree;
+      var viewPortSize = {
+        width: "".concat(width, "px"),
+        height: "".concat(height + 3, "px")
+      };
+      var halfElementHeight = height / 2;
+      var translateZ = halfElementHeight + height;
+      return React.createElement("span", {
+        style: _objectSpread2({}, viewPortSize, {
+          perspective: perspective,
+          overflow: 'hidden',
+          display: 'inline-block',
+          textAlign: 'left',
+          height: height
+        }),
+        "aria-hidden": true
+      }, React.createElement(reactSimpleAnimate.Animate, _extends({
+        tag: "span",
+        play: play,
+        start: _objectSpread2({}, commonAnimateStyle),
+        end: _objectSpread2({}, commonAnimateStyle, {
+          transform: "rotateX(".concat(degree, "deg)")
+        })
+      }, {
+        easeType: easeType,
+        duration: duration,
+        delay: delay
+      }, {
+        render: function render(_ref2) {
+          var style = _ref2.style;
+          return React.createElement("span", {
+            style: style
+          }, numbers.map(function (n, i) {
+            return React.createElement("span", {
+              style: _objectSpread2({}, viewPortSize, {
+                height: height,
+                lineHeight: "".concat(height, "px"),
+                fontSize: "".concat(height - 1, "px"),
+                position: 'absolute',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                WebkitFontSmoothing: 'antialiased',
+                color: color,
+                background: background,
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                transform: "rotateX(".concat(rotateDegreePerNumber * i, "deg) translateZ(").concat(translateZ, "px)")
+              }, numberStyle),
+              key: "".concat(rotateDegreePerNumber * i)
+            }, n);
+          }));
+        }
+      })), React.createElement("span", {
+        data: length - position,
+        style: _objectSpread2({}, viewPortSize, {
+          height: height,
+          lineHeight: "".concat(height, "px"),
+          fontSize: "".concat(height - 1, "px"),
+          left: "".concat(length - position > 4 ? 0.25 : 0, "px"),
+          // hacky fix for weird misalignment in Chrome.
+          position: 'absolute',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          WebkitFontSmoothing: 'antialiased',
+          color: color,
+          background: background,
+          transform: "rotateX(0deg) translateZ(".concat(translateZ, "px)"),
+          visibility: 'hidden'
+        }, numberStyle)
+      }, activeNumber));
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(_ref3, _ref4) {
+      var activeNumber = _ref3.activeNumber;
+      var rotateCounter = _ref4.rotateCounter;
+      return calculateDegrees(rotateCounter, activeNumber);
+    }
+  }]);
+
+  return FlipNumber;
+}(React.Component);
+
+var FlipNumbers =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(FlipNumbers, _React$Component);
+
+  function FlipNumbers() {
+    _classCallCheck(this, FlipNumbers);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(FlipNumbers).apply(this, arguments));
+  }
+
+  _createClass(FlipNumbers, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      return nextProps.numbers !== this.props.numbers || nextProps.height !== this.props.height || nextProps.width !== this.props.width || nextProps.duration !== this.props.duration || nextProps.delay !== this.props.delay || nextProps.play !== this.props.play;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          numbers = _this$props.numbers,
+          nonNumberStyle = _this$props.nonNumberStyle,
+          numberStyle = _this$props.numberStyle,
+          height = _this$props.height,
+          width = _this$props.width,
+          color = _this$props.color,
+          background = _this$props.background,
+          perspective = _this$props.perspective,
+          duration = _this$props.duration,
+          animate = _this$props.animate,
+          play = _this$props.play,
+          delay = _this$props.delay;
+      var numberCounter = 0;
+      return React.createElement("section", {
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        },
+        "aria-label": numbers
+      }, Array.from(numbers).map(function (n, key) {
+        var nonNumber = React.createElement("span", {
+          "aria-hidden": true,
+          style: nonNumberStyle,
+          key: numberCounter
+        }, n);
+
+        if (animate) {
+          numberCounter += 1;
+          return !Number.isNaN(parseInt(n, 10)) ? React.createElement(FlipNumber, _extends({
+            key: key,
+            height: height,
+            width: width,
+            color: color,
+            background: background,
+            perspective: perspective,
+            duration: duration,
+            play: play,
+            delay: delay,
+            numberStyle: numberStyle
+          }, {
+            position: numberCounter,
+            length: numbers.length,
+            activeNumber: parseInt(n, 10)
+          })) : nonNumber;
+        }
+
+        return !Number.isNaN(parseInt(n, 10)) ? React.createElement("span", {
+          "aria-hidden": true,
+          style: {
+            padding: 0
+          },
+          className: nonNumberStyle,
+          key: numberCounter
+        }, n) : nonNumber;
+      }));
+    }
+  }]);
+
+  return FlipNumbers;
+}(React.Component);
+
+_defineProperty(FlipNumbers, "defaultProps", {
+  perspective: 500,
+  duration: 0.3,
+  animate: true,
+  play: false,
+  delay: 0,
+  nonNumberStyle: {},
+  numberStyle: {}
+});
+
+exports.FlipNumber = FlipNumber;
+exports.default = FlipNumbers;
+
+
+/***/ }),
+
 /***/ "./node_modules/react-is/cjs/react-is.development.js":
 /*!***********************************************************!*\
   !*** ./node_modules/react-is/cjs/react-is.development.js ***!
@@ -37419,6 +37892,324 @@ exports.typeOf = typeOf;
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/react-simple-animate/dist/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-simple-animate/dist/index.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+}
+
+var calculateTotalDuration = ({ duration = 0.3, delay = 0, overlay = 0, }) => duration + delay - overlay || 0;
+
+function getSequenceId(sequenceIndex, sequenceId, defaultValue) {
+    if (sequenceId === undefined && sequenceIndex === undefined)
+        return defaultValue || 0;
+    if (sequenceIndex && sequenceIndex >= 0)
+        return sequenceIndex;
+    if (sequenceId)
+        return sequenceId;
+    return 0;
+}
+
+const { useState, useRef, useEffect } = React;
+const AnimateContext = React.createContext({
+    animationStates: {},
+    register: (data) => { },
+});
+function AnimateGroup(props) {
+    const { play, sequences = [], children } = props;
+    const [animationStates, setAnimationStates] = useState();
+    const animationsRef = useRef({});
+    const register = (data) => {
+        const { sequenceIndex, sequenceId } = data;
+        if (sequenceId === undefined && sequenceIndex === undefined)
+            return;
+        animationsRef.current[getSequenceId(sequenceIndex, sequenceId)] = data;
+    };
+    useEffect(() => {
+        const sequencesToAnimate = Array.isArray(sequences) && sequences.length ? sequences : Object.values(animationsRef.current);
+        const localAnimationState = {};
+        (play ? sequencesToAnimate : [...sequencesToAnimate].reverse()).reduce((previous, current, currentIndex) => {
+            const { sequenceId, sequenceIndex } = current, restAttributes = __rest(current, ["sequenceId", "sequenceIndex"]);
+            const { duration, delay, overlay } = restAttributes;
+            const id = getSequenceId(sequenceIndex, sequenceId, currentIndex);
+            const totalDuration = calculateTotalDuration({ duration, delay, overlay }) + previous;
+            localAnimationState[id] = {
+                play,
+                delay: currentIndex === 0 ? delay || 0 : previous,
+            };
+            return totalDuration;
+        }, 0);
+        setAnimationStates(localAnimationState);
+    }, [play]);
+    // @ts-ignore
+    return (React.createElement(AnimateContext.Provider, { value: { animationStates, register } }, children));
+}
+
+var msToSec = (ms) => (ms || 0) * 1000;
+
+const { useEffect: useEffect$1, useState: useState$1, useRef: useRef$1, useContext } = React;
+function Animate(props) {
+    const { play, children, render, start, end, complete = '', onComplete, delay = 0, duration = 0.3, easeType = 'linear', sequenceId, sequenceIndex, } = props;
+    const onCompleteTimeRef = useRef$1(null);
+    const [style, setStyle] = useState$1(start || {});
+    const { register, animationStates = {} } = useContext(AnimateContext);
+    const id = getSequenceId(sequenceIndex, sequenceId);
+    useEffect$1(() => {
+        if ((sequenceIndex !== undefined && sequenceIndex >= 0) || sequenceId)
+            register(props);
+    }, []);
+    useEffect$1(() => {
+        setStyle(Object.assign({}, (play || (animationStates[id] || {}).play ? end : start), { transition: `all ${duration}s ${easeType} ${parseFloat((animationStates[id] || {}).delay || delay)}s` }));
+        if (play && (complete || onComplete)) {
+            // @ts-ignore
+            onCompleteTimeRef.current = setTimeout(() => {
+                complete && setStyle(complete);
+                onComplete && onComplete();
+            }, msToSec(parseFloat((animationStates[id] || {}).delay || delay) + duration));
+        }
+        return () => {
+            // @ts-ignore
+            onCompleteTimeRef.current && clearTimeout(onCompleteTimeRef.current);
+        };
+    }, [id, animationStates, play, duration, easeType, delay, onComplete, start, end, complete]);
+    return render ? render({ style }) : React.createElement("div", { style: style }, children);
+}
+
+function createStyle({ keyframes, animationName, }) {
+    const animationLength = keyframes.length;
+    return `${keyframes.reduce((previous, keyframe, currentIndex) => {
+        if (keyframe) {
+            return `${previous} ${animationLength === 2 ? currentIndex * 100 : parseFloat((100 / (animationLength - 1)).toFixed(2)) * currentIndex}% {${keyframe}}`;
+        }
+        return `${previous} ${Object.keys(keyframe)[0]}% {${Object.values(keyframe)[0]}}`;
+    }, `@keyframes ${animationName} {`)}}`;
+}
+
+function createTag({ keyframes, animationName, }) {
+    let styleTag = document.querySelector('style[data-id=rsi]');
+    let index = 0;
+    if (!styleTag) {
+        styleTag = document.createElement('style');
+        styleTag.setAttribute('data-id', 'rsi');
+        document.head.appendChild(styleTag);
+    }
+    try {
+        // @ts-ignore
+        index = styleTag.sheet.cssRules.length;
+    }
+    catch (e) {
+        index = 0;
+    }
+    try {
+        // @ts-ignore
+        styleTag.sheet.insertRule(createStyle({
+            keyframes,
+            animationName,
+        }), index);
+    }
+    catch (e) {
+        console.error('react simple animate, error found during insert style ', e); // eslint-disable-line no-console
+    }
+    return {
+        styleTag,
+        index,
+    };
+}
+
+var createRandomName = () => `RSI-${Math.random()
+    .toString(36)
+    .substr(2, 9)}`;
+
+var deleteRules = (sheet, deleteName) => {
+    const index = Object.values(sheet.cssRules).findIndex(({ name }) => name === deleteName);
+    if (index >= 0)
+        sheet.deleteRule(index);
+};
+
+const { useRef: useRef$2, useEffect: useEffect$2, useContext: useContext$1, useState: useState$2 } = React;
+function AnimateKeyframes(props) {
+    const { children, play, render, duration = 0.3, delay = 0, easeType = 'linear', playState = 'running', direction = 'normal', fillMode = 'none', iterationCount = 1, keyframes, } = props;
+    const animationNameRef = useRef$2('');
+    const styleTagRef = useRef$2({
+        sheet: {},
+    });
+    const { register } = useContext$1(AnimateContext);
+    const forceUpdate = useState$2(false)[1];
+    useEffect$2(() => {
+        animationNameRef.current = createRandomName();
+        const { styleTag } = createTag({
+            animationName: animationNameRef.current,
+            keyframes,
+        });
+        styleTagRef.current = styleTag;
+        register(props);
+        if (play)
+            forceUpdate(true);
+        return () => deleteRules(styleTagRef.current.sheet, animationNameRef.current);
+    }, []);
+    const style = play
+        ? {
+            animation: `${duration}s ${easeType} ${delay}s ${iterationCount} ${direction} ${fillMode} ${playState} ${animationNameRef.current ||
+                ''}`,
+        }
+        : null;
+    return render ? render({ style }) : React.createElement("div", { style: style || {} }, children);
+}
+
+function useAnimate(props) {
+    const { start, end, complete, onComplete, delay = 0, duration = 0.3, easeType = 'linear' } = props;
+    const transition = `all ${duration}s ${easeType} ${delay}s`;
+    const [style, setStyle] = React.useState(Object.assign({}, start, { transition }));
+    const [isPlaying, setIsPlaying] = React.useState(false);
+    const onCompleteTimeRef = React.useRef(0);
+    React.useEffect(() => () => {
+        onCompleteTimeRef.current && clearTimeout(onCompleteTimeRef.current);
+    }, []);
+    const play = (isPlay) => {
+        setStyle(Object.assign({}, (isPlay ? end : start), { transition }));
+        setIsPlaying(isPlay);
+        if (isPlay && (complete || onComplete)) {
+            // @ts-ignore
+            onCompleteTimeRef.current = setTimeout(() => {
+                // @ts-ignore
+                complete && setStyle(complete);
+                onComplete && onComplete();
+            }, msToSec(delay + duration));
+        }
+    };
+    return {
+        isPlaying,
+        style,
+        play,
+    };
+}
+
+function useAnimateKeyframes(props) {
+    const { duration = 0.3, delay = 0, easeType = 'linear', direction = 'normal', fillMode = 'none', iterationCount = 1, playState = 'running', keyframes, } = props;
+    const animationNameRef = React.useRef('');
+    const styleTagRef = React.useRef('');
+    const { register } = React.useContext(AnimateContext);
+    const [isPlaying, setIsPlaying] = React.useState(false);
+    React.useEffect(() => {
+        animationNameRef.current = createRandomName();
+        const { styleTag } = createTag({
+            animationName: animationNameRef.current,
+            keyframes,
+        });
+        styleTagRef.current = styleTag;
+        register(props);
+        // @ts-ignore
+        return () => deleteRules(styleTagRef.current.sheet, animationNameRef.current);
+    }, []);
+    const play = (isPlay) => {
+        setIsPlaying(isPlay);
+    };
+    const style = isPlaying
+        ? {
+            animation: `${duration}s ${easeType} ${delay}s ${iterationCount} ${direction} ${fillMode} ${playState} ${animationNameRef.current ||
+                ''}`,
+        }
+        : null;
+    return {
+        style,
+        play,
+        isPlaying,
+    };
+}
+
+function createArrayWithNumbers(length) {
+    return Array.from({ length }, () => null);
+}
+function useAnimateGroup(props) {
+    const { sequences = [] } = props;
+    const defaultArray = createArrayWithNumbers(sequences.length);
+    const [styles, setStyles] = React.useState(defaultArray);
+    const [isPlaying, setPlaying] = React.useState(false);
+    const animationNamesRef = React.useRef({});
+    React.useEffect(() => {
+        let localStyleTag;
+        // @ts-ignore
+        sequences.forEach(({ keyframes = false }, i) => {
+            if (!Array.isArray(keyframes))
+                return;
+            const animationName = createRandomName();
+            animationNamesRef.current[i] = animationName;
+            const { styleTag } = createTag({ animationName, keyframes });
+            localStyleTag = styleTag;
+        });
+        return () => {
+            if (!localStyleTag)
+                return;
+            Object.values(animationNamesRef).forEach(name => {
+                deleteRules(localStyleTag.sheet, name);
+            });
+        };
+    }, []);
+    const play = (isPlay) => {
+        let totalDuration = 0;
+        const styles = (isPlay ? sequences : [...sequences].reverse()).map((current, currentIndex) => {
+            const { duration = 0.3, delay = 0, overlay, keyframes, iterationCount = 1, easeType = 'linear', playState = 'running', direction = 'normal', fillMode = 'none', end = {}, start = {}, } = current;
+            const delayDuration = currentIndex === 0 ? delay : totalDuration;
+            totalDuration = calculateTotalDuration({ duration, delay, overlay }) + totalDuration;
+            if (keyframes) {
+                return isPlay
+                    ? {
+                        animation: `${duration}s ${easeType} ${delayDuration}s ${iterationCount} ${direction} ${fillMode} ${playState} ${animationNamesRef.current[currentIndex]}`,
+                    }
+                    : {};
+            }
+            const transition = `all ${duration}s ${easeType} ${delayDuration}s`;
+            return Object.assign({}, (isPlay ? end : start), { transition });
+        });
+        // @ts-ignore
+        setStyles(isPlay ? styles : [...styles].reverse());
+        setPlaying(!isPlaying);
+    };
+    return { styles, play, isPlaying };
+}
+
+exports.Animate = Animate;
+exports.AnimateGroup = AnimateGroup;
+exports.AnimateKeyframes = AnimateKeyframes;
+exports.useAnimate = useAnimate;
+exports.useAnimateGroup = useAnimateGroup;
+exports.useAnimateKeyframes = useAnimateKeyframes;
 
 
 /***/ }),
