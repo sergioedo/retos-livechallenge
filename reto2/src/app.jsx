@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay, faStop, faRedo } from '@fortawesome/free-solid-svg-icons'
 
-const initialTime = 3
+const initialTime = 20
+
+const buttonStyle = {
+    backgroundColor: '#cacaca',
+    borderRadius: '20px',
+    padding: '8px'
+}
+
+const ButtonControl = ({ onClick, text, faIcon }) => {
+    return (
+        <button style={buttonStyle} onClick={onClick}>
+            <FontAwesomeIcon icon={faIcon} />&nbsp;{text}
+        </button>
+    )
+}
 
 const App = () => {
     const [counter, setCounter] = useState(initialTime)
@@ -51,9 +67,9 @@ const App = () => {
     return (
         <>
             <h1>Malandriner CountDown: {counter}s</h1>
-            <button onClick={() => startCountDown(intervalID)}>START</button>&nbsp;&nbsp;
-            <button onClick={() => stopCountDown(intervalID)}>STOP</button>&nbsp;&nbsp;
-            <button onClick={() => resetCountDown(intervalID)}>RESET</button>
+            <ButtonControl onClick={() => startCountDown(intervalID)} text="PLAY" faIcon={faPlay} />&nbsp;&nbsp;
+            <ButtonControl onClick={() => stopCountDown(intervalID)} text="STOP" faIcon={faStop} />&nbsp;&nbsp;
+            <ButtonControl onClick={() => resetCountDown(intervalID)} text="RESET" faIcon={faRedo} />
         </>
     )
 }
