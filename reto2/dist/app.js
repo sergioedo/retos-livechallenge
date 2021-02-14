@@ -63,6 +63,7 @@ var App = function App() {
 
   var stopCountDown = function stopCountDown(intervalID) {
     clearInterval(intervalID);
+    if (confetti.isRunning()) confetti.stop(); // stop party :(
   };
 
   var startCountDown = function startCountDown(intervalID) {
@@ -70,11 +71,13 @@ var App = function App() {
 
     var timer = window.setInterval(countDown(0.005), 5);
     setIntervalID(timer);
+    if (confetti.isPaused()) confetti.resume(); // continue party :(
   };
 
   var resetCountDown = function resetCountDown(intervalID) {
     stopCountDown(intervalID);
     setCounter(initialTime);
+    if (confetti.isRunning()) confetti.remove(); // remove party :(
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {

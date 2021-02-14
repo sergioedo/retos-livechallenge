@@ -24,6 +24,7 @@ const App = () => {
 
     const stopCountDown = (intervalID) => {
         clearInterval(intervalID)
+        if (confetti.isRunning()) confetti.stop() // stop party :(
     }
 
     const startCountDown = (intervalID) => {
@@ -31,11 +32,13 @@ const App = () => {
         //activamos el timer para descontar 5ms, cada 5ms (máximo 4ms https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval#delay_restrictions)
         const timer = window.setInterval(countDown(0.005), 5)
         setIntervalID(timer)
+        if (confetti.isPaused()) confetti.resume() // continue party :(
     }
 
     const resetCountDown = (intervalID) => {
         stopCountDown(intervalID)
         setCounter(initialTime)
+        if (confetti.isRunning()) confetti.remove() // remove party :(
     }
 
     useEffect(() => {
