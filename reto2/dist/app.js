@@ -41,6 +41,13 @@ var App = function App() {
       intervalID = _useState4[0],
       setIntervalID = _useState4[1];
 
+  if (counter <= 0) {
+    clearInterval(intervalID); // paramos cuando llegue a 0
+    // Party time!
+
+    confetti.start();
+  }
+
   var countDown = function countDown() {
     setCounter(function (counter) {
       if (counter > 0) {

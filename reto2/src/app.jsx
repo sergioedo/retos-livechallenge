@@ -5,6 +5,12 @@ const App = () => {
     const [counter, setCounter] = useState(20)
     const [intervalID, setIntervalID] = useState()
 
+    if (counter <= 0) {
+        clearInterval(intervalID) // paramos cuando llegue a 0
+        // Party time!
+        confetti.start()
+    }
+
     const countDown = () => {
         setCounter(counter => {
             if (counter > 0) {
