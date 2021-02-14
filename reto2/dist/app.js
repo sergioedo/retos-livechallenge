@@ -48,21 +48,22 @@ var App = function App() {
     confetti.start();
   }
 
-  var countDown = function countDown() {
-    setCounter(function (counter) {
-      if (counter > 0) {
-        return counter - 1;
-      }
+  var countDown = function countDown(decrement) {
+    return function () {
+      setCounter(function (counter) {
+        if (counter > 0) {
+          return Number.parseFloat(counter - decrement).toFixed(3);
+        }
 
-      return counter;
-    });
+        return counter;
+      });
+    };
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var timer = window.setInterval(countDown, 1000); //activamos el timer para descontar 1, cada 1s
-
-    setIntervalID(timer); //activamos el timer, cada 1s
-
+    //activamos el timer para descontar 5ms, cada 5ms (máximo 4ms https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval#delay_restrictions)
+    var timer = window.setInterval(countDown(0.005), 5);
+    setIntervalID(timer);
     return function () {
       clearInterval(intervalID); //liberamos el timer al desmontar el componente
     };
