@@ -29,9 +29,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var initialTime = 3;
 
 var App = function App() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(20),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialTime),
       _useState2 = _slicedToArray(_useState, 2),
       counter = _useState2[0],
       setCounter = _useState2[1];
@@ -60,18 +61,47 @@ var App = function App() {
     };
   };
 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    //activamos el timer para descontar 5ms, cada 5ms (máximo 4ms https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval#delay_restrictions)
+  var stopCountDown = function stopCountDown(intervalID) {
+    clearInterval(intervalID);
+  };
+
+  var startCountDown = function startCountDown(intervalID) {
+    if (intervalID) stopCountDown(intervalID); //activamos el timer para descontar 5ms, cada 5ms (máximo 4ms https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval#delay_restrictions)
+
     var timer = window.setInterval(countDown(0.005), 5);
     setIntervalID(timer);
+  };
+
+  var resetCountDown = function resetCountDown(intervalID) {
+    stopCountDown(intervalID);
+    setCounter(initialTime);
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    startCountDown();
     return function () {
-      clearInterval(intervalID); //liberamos el timer al desmontar el componente
+      stopCountDown(intervalID); //liberamos el timer al desmontar el componente
     };
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h1", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h1", {
       children: ["Malandriner CountDown: ", counter, "s"]
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      onClick: function onClick() {
+        return startCountDown(intervalID);
+      },
+      children: "START"
+    }), "\xA0\xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      onClick: function onClick() {
+        return stopCountDown(intervalID);
+      },
+      children: "STOP"
+    }), "\xA0\xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      onClick: function onClick() {
+        return resetCountDown(intervalID);
+      },
+      children: "RESET"
+    })]
   });
 };
 
