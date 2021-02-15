@@ -9956,7 +9956,8 @@ var contentStyle = {
 };
 var titleStyle = {
   color: '#276678',
-  marginTop: 0
+  marginTop: 0,
+  textAlign: 'center'
 };
 var buttonStyle = {
   backgroundColor: '#1687a7',
@@ -9978,6 +9979,19 @@ var ButtonControl = function ButtonControl(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
       icon: faIcon
     }), "\xA0", text]
+  });
+};
+
+var Video = function Video() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    style: {
+      paddingTop: '20px'
+    },
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("iframe", {
+      width: "420",
+      height: "315",
+      src: 'https://www.youtube.com/embed/cbnh5hFKVQ4?autoplay=1&t=167&mute=1'
+    })
   });
 };
 

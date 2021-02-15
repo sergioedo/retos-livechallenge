@@ -27,7 +27,8 @@ const contentStyle = {
 
 const titleStyle = {
     color: '#276678',
-    marginTop: 0
+    marginTop: 0,
+    textAlign: 'center'
 }
 
 const buttonStyle = {
@@ -45,6 +46,16 @@ const ButtonControl = ({ onClick, text, faIcon }) => {
         <button style={buttonStyle} onClick={onClick}>
             <FontAwesomeIcon icon={faIcon} />&nbsp;{text}
         </button>
+    )
+}
+
+const Video = () => {
+    return (
+        <div style={{ paddingTop: '20px' }}>
+            <iframe width="420" height="315"
+                src={'https://www.youtube.com/embed/cbnh5hFKVQ4?autoplay=1&t=167&mute=1'}>
+            </iframe>
+        </div>
     )
 }
 
@@ -104,6 +115,7 @@ const App = () => {
                     <ButtonControl onClick={() => stopCountDown(intervalID)} text="STOP" faIcon={faStop} />&nbsp;&nbsp;
                     <ButtonControl onClick={() => resetCountDown(intervalID)} text="RESET" faIcon={faRedo} />
                 </div>
+                {/* <Video /> */}
             </div>
         </section>
     )
