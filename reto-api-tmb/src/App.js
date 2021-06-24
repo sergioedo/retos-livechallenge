@@ -5,6 +5,8 @@ function App() {
   const [metroLines, setMetroLines] = useState();
   const [lineSelectedCode, setLineSelectedCode] = useState();
   const [metroStations, setMetroStations] = useState();
+  const [busStopFeature, setBusStopFeature] = useState();
+  const [busStopTimes, setBusStopTimes] = useState([]);
 
   useEffect(() => {
     fetch(
@@ -35,6 +37,21 @@ function App() {
     }
   }, [lineSelectedCode]);
 
+  useEffect(() => {
+    if (busStopFeature) {
+      setBusStopTimes();
+      const stopCode = busStopFeature.properties.CODI_PARADA;
+      fetch(
+        `https://api.tmb.cat/v1/ibus/stops/${stopCode}?app_id=${process.env.REACT_APP_APP_ID}&app_key=${process.env.REACT_APP_APP_KEY}`
+      )
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.data.ibus);
+          setBusStopTimes(data.data.ibus);
+        });
+    }
+  }, [busStopFeature]);
+
   const handleLineSelected = event => {
     setMetroStations(null);
     if (event.target.value > 0) {
@@ -44,9 +61,27 @@ function App() {
     }
   };
 
+  const handleStopEntered = event => {
+    if (event.key === "Enter") {
+      setBusStopFeature();
+      setBusStopTimes();
+      const stopCode = event.target.value;
+      if (!stopCode || isNaN(stopCode)) return;
+      fetch(
+        `https://api.tmb.cat/v1/transit/parades/${stopCode}?app_id=${process.env.REACT_APP_APP_ID}&app_key=${process.env.REACT_APP_APP_KEY}`
+      )
+        .then(response => response.json())
+        .then(data => {
+          if (data.features.length > 0) {
+            setBusStopFeature(data.features[0]);
+          }
+        });
+    }
+  };
+
   const lineSelectedFeature = lineSelectedCode
     ? metroLines.features.filter(f => {
-        return f.properties.CODI_LINIA == lineSelectedCode;
+        return f.properties.CODI_LINIA === lineSelectedCode;
       })[0]
     : null;
 
@@ -87,6 +122,32 @@ function App() {
       <h3>Mapa de la Línea de Metro</h3>
       <p>Muestra la siguiente feature sobre una mapa:</p>
       <p>{lineSelectedFeature && JSON.stringify(lineSelectedFeature)}</p>
+      <br />
+      <br />
+      <h3>Próximos buses en parada</h3>
+      <input
+        type="text"
+        placeholder="Introduce el código de la parada"
+        size="30"
+        onKeyDown={handleStopEntered}
+      ></input>
+      <p>Muestra la parada sobre una mapa:</p>
+      <p>{busStopFeature && JSON.stringify(busStopFeature)}</p>
+      <p>
+        {busStopFeature &&
+          `Próximos buses en la parada ${busStopFeature.properties.CODI_PARADA}:`}
+      </p>
+      <ul>
+        {busStopTimes &&
+          busStopTimes.map((busStopTime, index) => {
+            return (
+              <li key={index}>
+                Línea {busStopTime.line} dirección {busStopTime.destination} en{" "}
+                {busStopTime["t-in-min"]} min.
+              </li>
+            );
+          })}
+      </ul>
     </div>
   );
 }
