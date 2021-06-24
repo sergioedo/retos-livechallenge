@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
   const [metroLines, setMetroLines] = useState();
-  const [lineSelected, setLineSelected] = useState();
+  const [lineSelectedCode, setLineSelectedCode] = useState();
   const [metroStations, setMetroStations] = useState();
 
   useEffect(() => {
@@ -21,9 +20,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (lineSelected) {
+    if (lineSelectedCode) {
       fetch(
-        `https://api.tmb.cat/v1/transit/linies/metro/${lineSelected}/estacions?app_id=${process.env.REACT_APP_APP_ID}&app_key=${process.env.REACT_APP_APP_KEY}`
+        `https://api.tmb.cat/v1/transit/linies/metro/${lineSelectedCode}/estacions?app_id=${process.env.REACT_APP_APP_ID}&app_key=${process.env.REACT_APP_APP_KEY}`
       )
         .then(response => response.json())
         .then(data => {
@@ -34,18 +33,26 @@ function App() {
           setMetroStations({ ...data, features: sortedFeatures });
         });
     }
-  }, [lineSelected]);
+  }, [lineSelectedCode]);
 
   const handleLineSelected = event => {
     setMetroStations(null);
     if (event.target.value > 0) {
-      setLineSelected(event.target.value);
+      setLineSelectedCode(Number(event.target.value));
+    } else {
+      setLineSelectedCode();
     }
   };
 
+  const lineSelectedFeature = lineSelectedCode
+    ? metroLines.features.filter(f => {
+        return f.properties.CODI_LINIA == lineSelectedCode;
+      })[0]
+    : null;
+
   return (
     <div className="App">
-      <h3>Metro de Barcelona</h3>
+      <h3>Estaciones de Metro de Barcelona</h3>
       <label>Línea: </label>
       <select name="select" onChange={handleLineSelected}>
         <option key={0}>--- Selecciona una línea ---</option>
@@ -75,6 +82,11 @@ function App() {
             );
           })}
       </ul>
+      <br />
+      <br />
+      <h3>Mapa de la Línea de Metro</h3>
+      <p>Muestra la siguiente feature sobre una mapa:</p>
+      <p>{lineSelectedFeature && JSON.stringify(lineSelectedFeature)}</p>
     </div>
   );
 }
