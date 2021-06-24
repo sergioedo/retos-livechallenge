@@ -1,87 +1,40 @@
-import { useState, useEffect } from "react";
 import "./App.css";
+import useMetroLines from "./hooks/useMetroLines";
+import useMetroStations from "./hooks/useMetroStations";
+import useBusStop from "./hooks/useBusStops";
 
 function App() {
-  const [metroLines, setMetroLines] = useState();
-  const [lineSelectedCode, setLineSelectedCode] = useState();
-  const [metroStations, setMetroStations] = useState();
-  const [busStopFeature, setBusStopFeature] = useState();
-  const [busStopTimes, setBusStopTimes] = useState([]);
+  const [metroLines] = useMetroLines();
+  const [
+    metroStations,
+    selectedLineCode,
+    setSelectedLineCode
+  ] = useMetroStations();
 
-  useEffect(() => {
-    fetch(
-      `https://api.tmb.cat/v1/transit/linies/metro?app_id=${process.env.REACT_APP_APP_ID}&app_key=${process.env.REACT_APP_APP_KEY}`
-    )
-      .then(response => response.json())
-      .then(data => {
-        const sortedFeatures = data.features.sort(
-          (f1, f2) => f1.properties.ORDRE_LINIA - f2.properties.ORDRE_LINIA
-        );
-        setMetroLines({ ...data, features: sortedFeatures });
-      });
-  }, []);
-
-  useEffect(() => {
-    if (lineSelectedCode) {
-      fetch(
-        `https://api.tmb.cat/v1/transit/linies/metro/${lineSelectedCode}/estacions?app_id=${process.env.REACT_APP_APP_ID}&app_key=${process.env.REACT_APP_APP_KEY}`
-      )
-        .then(response => response.json())
-        .then(data => {
-          const sortedFeatures = data.features.sort(
-            (f1, f2) =>
-              f1.properties.ORDRE_ESTACIO - f2.properties.ORDRE_ESTACIO
-          );
-          setMetroStations({ ...data, features: sortedFeatures });
-        });
-    }
-  }, [lineSelectedCode]);
-
-  useEffect(() => {
-    if (busStopFeature) {
-      setBusStopTimes();
-      const stopCode = busStopFeature.properties.CODI_PARADA;
-      fetch(
-        `https://api.tmb.cat/v1/ibus/stops/${stopCode}?app_id=${process.env.REACT_APP_APP_ID}&app_key=${process.env.REACT_APP_APP_KEY}`
-      )
-        .then(response => response.json())
-        .then(data => {
-          console.log(data.data.ibus);
-          setBusStopTimes(data.data.ibus);
-        });
-    }
-  }, [busStopFeature]);
+  const [stopCode, setStopCode, busStopFeature, busStopTimes] = useBusStop();
 
   const handleLineSelected = event => {
-    setMetroStations(null);
     if (event.target.value > 0) {
-      setLineSelectedCode(Number(event.target.value));
+      setSelectedLineCode(Number(event.target.value));
     } else {
-      setLineSelectedCode();
+      setSelectedLineCode();
     }
   };
 
   const handleStopEntered = event => {
     if (event.key === "Enter") {
-      setBusStopFeature();
-      setBusStopTimes();
       const stopCode = event.target.value;
-      if (!stopCode || isNaN(stopCode)) return;
-      fetch(
-        `https://api.tmb.cat/v1/transit/parades/${stopCode}?app_id=${process.env.REACT_APP_APP_ID}&app_key=${process.env.REACT_APP_APP_KEY}`
-      )
-        .then(response => response.json())
-        .then(data => {
-          if (data.features.length > 0) {
-            setBusStopFeature(data.features[0]);
-          }
-        });
+      if (!stopCode || isNaN(stopCode)) {
+        setStopCode();
+        return;
+      }
+      setStopCode(stopCode);
     }
   };
 
-  const lineSelectedFeature = lineSelectedCode
+  const lineSelectedFeature = selectedLineCode
     ? metroLines.features.filter(f => {
-        return f.properties.CODI_LINIA === lineSelectedCode;
+        return f.properties.CODI_LINIA === selectedLineCode;
       })[0]
     : null;
 
@@ -133,10 +86,7 @@ function App() {
       ></input>
       <p>Muestra la parada sobre una mapa:</p>
       <p>{busStopFeature && JSON.stringify(busStopFeature)}</p>
-      <p>
-        {busStopFeature &&
-          `Próximos buses en la parada ${busStopFeature.properties.CODI_PARADA}:`}
-      </p>
+      <p>{stopCode && `Próximos buses en la parada ${stopCode}:`}</p>
       <ul>
         {busStopTimes &&
           busStopTimes.map((busStopTime, index) => {
