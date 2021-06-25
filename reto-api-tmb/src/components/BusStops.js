@@ -16,7 +16,7 @@ const BusStops = () => {
   };
 
   return (
-    <div>
+    <div className="App-Container">
       <h3>Próximos buses en parada</h3>
       <input
         type="text"

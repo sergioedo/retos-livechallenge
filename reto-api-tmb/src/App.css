@@ -1,3 +1,19 @@
 .App {
-  margin: 50px;
+  background-color: #d9c5ea;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-Section {
+  background-color: #ffffff;
+  margin: 20px;
+  border-radius: 20px;
+}
+
+.App-Container {
+  padding: 30px;
+}
+
+.App-Container > h3 {
+  margin-block-start: auto;
 }

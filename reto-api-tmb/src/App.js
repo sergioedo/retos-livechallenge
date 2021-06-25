@@ -5,10 +5,12 @@ import BusStops from "./components/BusStops";
 function App() {
   return (
     <div className="App">
-      <MetroStations></MetroStations>
-      <br />
-      <br />
-      <BusStops></BusStops>
+      <section className="App-Section">
+        <MetroStations></MetroStations>
+      </section>
+      <section className="App-Section">
+        <BusStops></BusStops>
+      </section>
     </div>
   );
 }

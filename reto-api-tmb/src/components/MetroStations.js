@@ -25,7 +25,7 @@ const MetroStations = () => {
     : null;
 
   return (
-    <div>
+    <div className="App-Container">
       <h3>Estaciones de Metro de Barcelona</h3>
       <label>Línea: </label>
       <select name="select" onChange={handleLineSelected}>
