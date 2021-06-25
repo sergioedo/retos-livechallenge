@@ -2,6 +2,8 @@ import "./App.css";
 import useMetroLines from "./hooks/useMetroLines";
 import useMetroStations from "./hooks/useMetroStations";
 import useBusStop from "./hooks/useBusStops";
+import MetroMap from "./components/MetroMap";
+import BusStopMap from "./components/BusStopMap";
 
 function App() {
   const [metroLines] = useMetroLines();
@@ -10,7 +12,6 @@ function App() {
     selectedLineCode,
     setSelectedLineCode
   ] = useMetroStations();
-
   const [stopCode, setStopCode, busStopFeature, busStopTimes] = useBusStop();
 
   const handleLineSelected = event => {
@@ -70,11 +71,8 @@ function App() {
             );
           })}
       </ul>
-      <br />
-      <br />
       <h3>Mapa de la Línea de Metro</h3>
-      <p>Muestra la siguiente feature sobre una mapa:</p>
-      <p>{lineSelectedFeature && JSON.stringify(lineSelectedFeature)}</p>
+      <MetroMap metroLineFeature={lineSelectedFeature} />
       <br />
       <br />
       <h3>Próximos buses en parada</h3>
@@ -84,8 +82,6 @@ function App() {
         size="30"
         onKeyDown={handleStopEntered}
       ></input>
-      <p>Muestra la parada sobre una mapa:</p>
-      <p>{busStopFeature && JSON.stringify(busStopFeature)}</p>
       <p>{stopCode && `Próximos buses en la parada ${stopCode}:`}</p>
       <ul>
         {busStopTimes &&
@@ -98,6 +94,8 @@ function App() {
             );
           })}
       </ul>
+      <h3>Ubicación de la parada:</h3>
+      <BusStopMap busStopFeature={busStopFeature} />
     </div>
   );
 }
