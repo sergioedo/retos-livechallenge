@@ -26,38 +26,42 @@ const MetroStations = () => {
 
   return (
     <div className="App-Container">
-      <h3>Estaciones de Metro de Barcelona</h3>
-      <label>Línea: </label>
-      <select name="select" onChange={handleLineSelected}>
-        <option key={0}>--- Selecciona una línea ---</option>
-        {metroLines &&
-          metroLines.features.map(metroLine => {
-            return (
-              <option
-                key={metroLine.properties.CODI_LINIA}
-                value={metroLine.properties.CODI_LINIA}
-              >
-                {metroLine.properties.NOM_LINIA}
-              </option>
-            );
-          })}
-      </select>
-      <br />
-      <br />
-      <label>Estaciones:</label>
-      <ul>
-        {metroStations &&
-          metroStations.features.map(metroStation => {
-            return (
-              <li key={metroStation.properties.CODI_ESTACIO}>
-                {metroStation.properties.CODI_ESTACIO}-
-                {metroStation.properties.NOM_ESTACIO}
-              </li>
-            );
-          })}
-      </ul>
-      <h3>Mapa de la Línea de Metro</h3>
-      <MetroMap metroLineFeature={lineSelectedFeature} />
+      <div className="App-Container-SideMenu">
+        <h3>Estaciones de Metro de Barcelona</h3>
+        <label>Línea: </label>
+        <select name="select" onChange={handleLineSelected}>
+          <option key={0}>--- Selecciona una línea ---</option>
+          {metroLines &&
+            metroLines.features.map(metroLine => {
+              return (
+                <option
+                  key={metroLine.properties.CODI_LINIA}
+                  value={metroLine.properties.CODI_LINIA}
+                >
+                  {metroLine.properties.NOM_LINIA}
+                </option>
+              );
+            })}
+        </select>
+        <br />
+        <br />
+        <label>Estaciones:</label>
+        <ul>
+          {metroStations &&
+            metroStations.features.map(metroStation => {
+              return (
+                <li key={metroStation.properties.CODI_ESTACIO}>
+                  {metroStation.properties.CODI_ESTACIO}-
+                  {metroStation.properties.NOM_ESTACIO}
+                </li>
+              );
+            })}
+        </ul>
+      </div>
+      <div className="App-Container-Content">
+        <h3>Mapa de la Línea de Metro</h3>
+        <MetroMap metroLineFeature={lineSelectedFeature} />
+      </div>
     </div>
   );
 };

@@ -17,27 +17,31 @@ const BusStops = () => {
 
   return (
     <div className="App-Container">
-      <h3>Próximos buses en parada</h3>
-      <input
-        type="text"
-        placeholder="Introduce el código de la parada"
-        size="30"
-        onKeyDown={handleStopEntered}
-      ></input>
-      <p>{stopCode && `Próximos buses en la parada ${stopCode}:`}</p>
-      <ul>
-        {busStopTimes &&
-          busStopTimes.map((busStopTime, index) => {
-            return (
-              <li key={index}>
-                Línea {busStopTime.line} dirección {busStopTime.destination} en{" "}
-                {busStopTime["t-in-min"]} min.
-              </li>
-            );
-          })}
-      </ul>
-      <h3>Ubicación de la parada:</h3>
-      <BusStopMap busStopFeature={busStopFeature} />
+      <div className="App-Container-SideMenu">
+        <h3>Próximos buses en parada</h3>
+        <input
+          type="text"
+          placeholder="Introduce el código de la parada"
+          size="30"
+          onKeyDown={handleStopEntered}
+        ></input>
+        <p>{stopCode && `Próximos buses en la parada ${stopCode}:`}</p>
+        <ul>
+          {busStopTimes &&
+            busStopTimes.map((busStopTime, index) => {
+              return (
+                <li key={index}>
+                  Línea {busStopTime.line} dirección {busStopTime.destination}{" "}
+                  en {busStopTime["t-in-min"]} min.
+                </li>
+              );
+            })}
+        </ul>
+      </div>
+      <div className="App-Container-Content">
+        <h3>Ubicación de la parada:</h3>
+        <BusStopMap busStopFeature={busStopFeature} />
+      </div>
     </div>
   );
 };

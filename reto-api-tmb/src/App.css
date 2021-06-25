@@ -12,8 +12,18 @@
 
 .App-Container {
   padding: 30px;
+  display: flex;
+  flex-direction: row;
 }
 
 .App-Container > h3 {
   margin-block-start: auto;
+}
+
+.App-Container-SideMenu {
+  flex: 1;
+}
+
+.App-Container-Content {
+  flex: 3;
 }

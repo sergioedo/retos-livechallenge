@@ -26,7 +26,7 @@ const MetroMap = ({ metroLineFeature }) => {
         center={[41.394458, 2.158904]}
         zoom={11}
         scrollWheelZoom={false}
-        style={{ height: 400 }}
+        style={{ height: 600 }}
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
